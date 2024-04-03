@@ -1,8 +1,52 @@
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = { "*.cds" },
-  command = "set filetype=cds",
+	pattern = { "*.cds" },
+	command = "set filetype=cds",
 })
 require("lspconfig").cds_lsp.setup({})
+
+-- Install tree-sitter-cds for syntax highlighting
+local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+parser_config.cds = {
+	install_info = {
+		-- local path or git repo
+		-- url = '/path/to/tree-sitter-cds',
+		url = "https://github.com/cap-js-community/tree-sitter-cds.git",
+		files = { "src/parser.c", "src/scanner.c" },
+		branch = "main",
+		generate_requires_npm = false,
+		requires_generate_from_grammar = false,
+	},
+	filetype = "cds",
+	-- additional filetypes that use this parser
+	used_by = { "cdl", "hdbcds" },
+}
+
+vim.cmd("TSInstall cds")
+
+-- set colorscheme to evening cause Default scheme tokionight, which is great for most filetypes, looks
+-- awful for cds files
+vim.cmd("colorscheme evening")
+
+-- -- retrieve the content of a URL
+-- This could be used to copy the scm files from inside the container dynamically
+-- At the moment the scm files for tree-sitter-cds are copied when the image is build.
+-- If the tree-sitter-cds team adds additional scm files to the repo these are not detected
+-- automatically.
+--
+-- local nvimconfigpath = vim.fn.stdpath("config")
+-- local cdsTreeSitterPath = "" .. nvimconfigpath .. "/queries/cds"
+-- vim.notify("cdsTreeSitterPath: " .. cdsTreeSitterPath, vim.log.levels.WARN)
+-- vim.cmd("!mkdir -p " .. cdsTreeSitterPath)
+--
+-- local http = require("socket.http")
+-- local body, code = http.request("https://github.com/cap-js-community/tree-sitter-cds/raw/main/nvim/locals.scm")
+-- if not body then
+-- 	error(code)
+-- end
+-- -- save the content to a file
+-- local f = assert(io.open(cdsTreeSitterPath .. "/locals.scm", "wb")) -- open in "binary" mode
+-- f:write(body)
+-- f:close()
 
 -- I left the following code in this file cause it helps me to understand how lspconfig works and
 -- how it can be adjusted
