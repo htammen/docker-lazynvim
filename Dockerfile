@@ -24,6 +24,7 @@ ADD mason-nvim.lua /root/.config/nvim/lua/plugins/mason-nvim.lua
 ADD cds.lua /root/.config/nvim/lua/config/cds.lua
 ADD rest.lua /root/.config/nvim/lua/plugins/rest.lua
 ADD keymaps.lua /root/.config/nvim/lua/config/keymaps.lua
+ADD options.lua /root/.config/nvim/lua/config/options.lua
 
 # copy the files for tree-sitter-cds (syntax highlighting)
 ADD https://github.com/cap-js-community/tree-sitter-cds/raw/main/nvim/locals.scm /root/.config/nvim/queries/cds/locals.scm

@@ -33,7 +33,7 @@ As you can see in the before mentioned `docker run` commands, I don't use the `-
 the container takes a few seconds (~30) until I'm able to work with lazyvim.  
 Following calls of `docker start` are very fast.  
 
-I have a container for every project I work on. In the project root directory I have the following two shell scripts that I use to 
+I have a container for every project I work on. In my $HOME/bin directory (it's in my $PATH) I have the following two shell scripts that I use to 
 `run` (create) and `start` the container.
 
 lv-docker-run
